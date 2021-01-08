@@ -6,13 +6,15 @@ import Contact from './Contact';
 import Demo from './Demo';
 import Services from './Services';
 import SignUp from './SignUp';
+import Cover from './Cover';
 
 function Home() {
     return (
         <>
-            <About />
-            <Demo />
+            <Cover />
             <Services />
+            <Demo />
+            <About />
             <SignUp />
             <Contact />
             <Footer />
