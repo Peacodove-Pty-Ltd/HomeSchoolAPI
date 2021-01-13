@@ -3,7 +3,7 @@ export default () => {
       <html lang="en">
         <head>
           <meta charset="utf-8">
-          <title>homeschooling app</title>
+          <title>homeschooling</title>
         </head>
         <body>
           <div id="root"></div>
