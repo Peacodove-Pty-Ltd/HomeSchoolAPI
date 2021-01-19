@@ -1,0 +1,5 @@
+{
+    "verbose": false,
+    "watch": ["./client"],
+    "exec": "webpack --mode=development --config webpack.config.client.js && node server.js"
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import { hot } from "react-hot-loader";
 
 const HelloWorld = () => {
   return (
@@ -9,4 +8,4 @@ const HelloWorld = () => {
   );
 };
 
-export default hot(module)(HelloWorld);
+export default HelloWorld;

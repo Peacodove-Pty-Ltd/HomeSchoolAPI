@@ -2,13 +2,12 @@ const path = require("path");
 const webpack = require("webpack");
 const CURRENT_WORKING_DIR = process.cwd();
 
-const config = {
+module.exports = {
   name: "browser",
   mode: "development",
   devtool: "eval-source-map",
   entry: [
-    "webpack-hot-middleware/client?reload=true",
-    path.join(CURRENT_WORKING_DIR, "client/main.js"),
+    path.join(CURRENT_WORKING_DIR, "main.js"),
   ],
   output: {
     path: path.join(CURRENT_WORKING_DIR, "/dist"),
@@ -24,10 +23,6 @@ const config = {
       },
     ],
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-  ],
   resolve: {
     alias: {
       "react-dom": "@hot-loader/react-dom",
@@ -35,4 +30,3 @@ const config = {
   },
 };
 
-module.exports = config;
