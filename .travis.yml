@@ -7,3 +7,12 @@ cache:
 script:
   - yarn development
   - yarn build
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules
+before_script: cd client
+script:
+  - yarn development
