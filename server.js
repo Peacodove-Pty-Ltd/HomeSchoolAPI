@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/users', userRoutes)
 
-app.use('/api', (req, res) => {
+app.use('/', (req, res) => {
   res.status(200).json({api: 'version 1'})
 })
 
