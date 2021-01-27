@@ -1,20 +1,9 @@
 const express = require("express");
 const router = express.Router();
-let User = require("../models/user.model");
+const userController = require("../controllers/user.controller");
 
-router.route("/").get((req, res) => {
-  User.find()
-    .then((users) => res.json(users))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+router.route("/").get(userController.findUser);
 
-router.route("/add").post(async (req, res) => {
-  const email = req.body.email;
-  const newUser = new User({ email });
-  await newUser
-    .save()
-    .then(() => res.status(200).json("you were added to the waiting list"))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+router.route("/add").post(userController.addUser);
 
 module.exports = router;
