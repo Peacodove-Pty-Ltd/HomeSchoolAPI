@@ -1,18 +1,33 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const StudentSchema = new Schema({
     email: {
         type: String,
         trim: true,
         unique: "Email already exists",
         match: [/.+\@.+\..+/, "Please fill a valid email address"],
-        required: "Email is required",
     },
     password: {
         type: String,
        /** match: [/{expression}/, "Password must have a number[0 to 9], an uppercase latter and a lowercase letter"], */
         required: "password is required",
+    }, 
+    isHandRaised: {
+        type: Boolean
+    }, 
+    name: { 
+        firstName:{
+            type: String,
+            required: "first name is required"
+        },
+        lastName:{
+            type: String,
+            required: "last name is required"
+        },
+        givenName:{
+            type: String,
+        },
     },
     id: {
         type: String,
@@ -22,5 +37,5 @@ const userSchema = new Schema({
     }
 })
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Student = mongoose.model("Student", StudentSchema);
+module.exports = Student;
