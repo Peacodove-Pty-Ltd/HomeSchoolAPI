@@ -4,5 +4,14 @@
     "printWidth": 120,
     "singleQuote": false,
     "arrowParens": "always",
-    "proseWrap": "preserve"
+    "proseWrap": "preserve",
+    "bracketSpacing": true,
+    "overrides": [
+        {
+            "files": "*.{js,jsx,scss,css,json,html}",
+            "options": {
+                "tabWidth": 4
+            }
+        }
+    ]
   }
