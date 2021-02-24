@@ -43,5 +43,39 @@ const StudentSchema = new Schema({
     }
 })
 
+
+StudentSchema.pre("save", function (next) {
+    const student = this
+  
+    if (this.isModified("password") || this.isNew) {
+      bcrypt.genSalt(10, function (saltError, salt) {
+        if (saltError) {
+          return next(saltError)
+        } else {
+          bcrypt.hash(student.password, salt, function(hashError, hash) {
+            if (hashError) {
+              return next(hashError)
+            }
+  
+            student.password = hash
+            next()
+          })
+        }
+      })
+    } else {
+      return next()
+    }
+  })
+  
+  StudentSchema.methods.comparePassword = function(password, callback) {
+    bcrypt.compare(password, this.password, function(error, isMatch) {
+      if (error) {
+        return callback(error)
+      } else {
+        callback(null, isMatch)
+      }
+    })
+  }
+  
 const Student = mongoose.model("Student", StudentSchema);
 module.exports = Student;
