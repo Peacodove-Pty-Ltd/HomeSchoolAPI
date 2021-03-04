@@ -6,12 +6,13 @@ const LecturerSchema = new Schema({
         type: String,
         trim: true,
         unique: "Email already exists",
-        match: [/.+\@.+\..+/, "Please fill a valid email address"],
     },
     password: {
         type: String,
-       /** match: [/{expression}/, "Password must have a number[0 to 9], an uppercase latter and a lowercase letter"], */
-        required: "password is required",
+        trim: true,
+        minlength: 8,
+        maxlength: 16,
+        required: "password is required"
     }, 
     isHandRaised: {
         type: Boolean
@@ -36,6 +37,40 @@ const LecturerSchema = new Schema({
         required: "Id is required",
     }
 })
+
+
+LecturerSchema.pre("save", function (next) {
+    const lecturer = this
+  
+    if (this.isModified("password") || this.isNew) {
+      bcrypt.genSalt(10, function (saltError, salt) {
+        if (saltError) {
+          return next(saltError)
+        } else {
+          bcrypt.hash(lecturer.password, salt, function(hashError, hash) {
+            if (hashError) {
+              return next(hashError)
+            }
+  
+            lecturer.password = hash
+            next()
+          })
+        }
+      })
+    } else {
+      return next()
+    }
+  })
+  
+  LecturerSchema.methods.comparePassword = function(password, callback) {
+    bcrypt.compare(password, this.password, function(error, isMatch) {
+      if (error) {
+        return callback(error)
+      } else {
+        callback(null, isMatch)
+      }
+    })
+  }
 
 const Lecturer = mongoose.model("Lecturer", LecturerSchema);
 module.exports = Lecturer;

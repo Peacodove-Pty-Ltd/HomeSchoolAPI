@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const StudentSchema = new Schema({
+const AdministratorSchema = new Schema({
     email: {
         type: String,
         trim: true,
         unique: "Email already exists",
-        match: [/.+\@.+\..+/, "Please fill a valid email address"],
     },
     password: {
         type: String,
         minlength: 8,
         maxlength: 16,
         trim: true,
-        required: "password is required",
+        required: "password is required"
     },
     
     phoneNumber: {
@@ -41,21 +40,20 @@ const StudentSchema = new Schema({
     }
 })
 
-
-StudentSchema.pre("save", function (next) {
-    const student = this
+AdministratorSchema.pre("save", function (next) {
+    const admin = this
   
     if (this.isModified("password") || this.isNew) {
       bcrypt.genSalt(10, function (saltError, salt) {
         if (saltError) {
           return next(saltError)
         } else {
-          bcrypt.hash(student.password, salt, function(hashError, hash) {
+          bcrypt.hash(admin.password, salt, function(hashError, hash) {
             if (hashError) {
               return next(hashError)
             }
   
-            student.password = hash
+            admin.password = hash
             next()
           })
         }
@@ -65,7 +63,7 @@ StudentSchema.pre("save", function (next) {
     }
   })
   
-  StudentSchema.methods.comparePassword = function(password, callback) {
+  AdministratorSchema.methods.comparePassword = function(password, callback) {
     bcrypt.compare(password, this.password, function(error, isMatch) {
       if (error) {
         return callback(error)
@@ -75,5 +73,4 @@ StudentSchema.pre("save", function (next) {
     })
   }
   
-const Student = mongoose.model("Student", StudentSchema);
-module.exports = Student;
+module.exports = mongoose.model("Administrator", AdministratorSchema);
