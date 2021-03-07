@@ -16,7 +16,7 @@ app.use("/api", (req, res) => {
 });
 
 // Database Connection URL
-const db = process.env.MONGO_URI;
+const db = "mongodb+srv://homeschool-backend:5HL@ru9VgjP6Sf!@cluster0.xw2me.mongodb.net/homeschool-backend?retryWrites=true&w=majority";
 mongoose
   .connect(db)
   .then(() => console.log("db connected .."))
