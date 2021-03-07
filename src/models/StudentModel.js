@@ -10,12 +10,18 @@ const StudentSchema = new Schema({
     },
     password: {
         type: String,
-       /** match: [/{expression}/, "Password must have a number[0 to 9], an uppercase latter and a lowercase letter"], */
+        minlength: 8,
+        maxlength: 16,
+        trim: true,
+        // Regexp to validate emails with more strict rules as added in tests/users.js which also conforms mostly with RFC2822 guide lines
+        match: [/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please enter a valid email'],
         required: "password is required",
-    }, 
-    isHandRaised: {
-        type: Boolean
-    }, 
+    },
+    
+    phoneNumber: {
+        type: "string",
+        match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid phone-number"]
+    },
     name: { 
         firstName:{
             type: String,
@@ -37,5 +43,39 @@ const StudentSchema = new Schema({
     }
 })
 
+
+StudentSchema.pre("save", function (next) {
+    const student = this
+  
+    if (this.isModified("password") || this.isNew) {
+      bcrypt.genSalt(10, function (saltError, salt) {
+        if (saltError) {
+          return next(saltError)
+        } else {
+          bcrypt.hash(student.password, salt, function(hashError, hash) {
+            if (hashError) {
+              return next(hashError)
+            }
+  
+            student.password = hash
+            next()
+          })
+        }
+      })
+    } else {
+      return next()
+    }
+  })
+  
+  StudentSchema.methods.comparePassword = function(password, callback) {
+    bcrypt.compare(password, this.password, function(error, isMatch) {
+      if (error) {
+        return callback(error)
+      } else {
+        callback(null, isMatch)
+      }
+    })
+  }
+  
 const Student = mongoose.model("Student", StudentSchema);
 module.exports = Student;
