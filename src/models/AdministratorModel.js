@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const LecturerSchema = new Schema({
+const AdministratorSchema = new Schema({
     email: {
         type: String,
         trim: true,
@@ -11,10 +11,12 @@ const LecturerSchema = new Schema({
         type: String,
         trim: true,
         required: "password is required"
-    }, 
-    isHandRaised: {
-        type: Boolean
-    }, 
+    },
+    
+    phoneNumber: {
+        type: "string",
+        match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid phone-number"]
+    },
     name: { 
         firstName:{
             type: String,
@@ -36,5 +38,4 @@ const LecturerSchema = new Schema({
     }
 })
 
-const Lecturer = mongoose.model("Lecturer", LecturerSchema);
-module.exports = Lecturer;
+module.exports = mongoose.model("Administrator", AdministratorSchema);

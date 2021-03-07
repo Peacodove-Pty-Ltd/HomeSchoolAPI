@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const cors = require('cors');
-const userRoutes = require("./src/routes/user.routes");
+const userRoutes = require("./src/routes/UserRoutes");
+const properties = require('./properties')
 
 var socketio = require('socket.io'),
     http = require('http'), 
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/users', userRoutes)
 
-app.use('/api', (req, res) => {
+app.use(properties.api, (req, res) => {
   res.status(200).json({api: 'version 1'})
 })
 

@@ -10,12 +10,14 @@ const StudentSchema = new Schema({
     },
     password: {
         type: String,
-       /** match: [/{expression}/, "Password must have a number[0 to 9], an uppercase latter and a lowercase letter"], */
+        trim: true,
         required: "password is required",
-    }, 
-    isHandRaised: {
-        type: Boolean
-    }, 
+    },
+    
+    phoneNumber: {
+        type: "string",
+        match: [/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, "Please enter a valid phone-number"]
+    },
     name: { 
         firstName:{
             type: String,
