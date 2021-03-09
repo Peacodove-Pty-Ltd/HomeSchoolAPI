@@ -8,7 +8,8 @@
         "plugin:unicorn/recommended",
         "plugin:prettier/recommended",
         "prettier",
-        "prettier/unicorn"
+        "prettier/unicorn",
+        "plugin:json/recommended"
     ],
     "env": {
         "es6": true,
