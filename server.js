@@ -22,6 +22,13 @@ app.use("/api", (req, res) => {
   res.status(200).json({ api: "version 1" });
 });
 
+// Database Connection URL
+const db = process.env.MONGO_URI;
+mongoose
+  .connect(db)
+  .then(() => console.log("db connected .."))
+  .catch((err) => console.log(err));
+
 const port = process.env.PORT;
 app.listen(port, function onStart(err) {
   if (err) {
