@@ -43,7 +43,7 @@ this starts your server on `localhost:<PORT_NUMBER>`
 After making neccesary changes to the project in your own branch, `commit`, `push` and `create a pull request` on github
 
 ## Contribute
-Please refer to the contributing.md file for information about how to get involved. We welcome issues, questions, and pull requests.
+We welcome issues, questions, and pull requests.
 
 ## Maintainers
 - [Enock Kasaadha](https://github.com/EKaxada)
