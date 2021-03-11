@@ -17,6 +17,16 @@
     },
     "rules": {
         "unicorn/prevent-abbreviations": "off",
+        
+  "unicorn/filename-case": [
+    "error",
+    {
+      "cases": {
+        "camelCase": true,
+        "pascalCase": true
+      }
+    }
+  ],
         "no-var": "error",
         "semi": "error",
         "indent": [
