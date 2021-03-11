@@ -19,7 +19,7 @@ const signUpValidation = data => {
   // email checks
   if ( Validator.isEmpty( data.email ) ){
     errors.email = "Email field is required";
-  } else if ( !Validator.isEmpty( data.email ) ){
+  } else if ( !Validator.isEmail( data.email ) ){
     errors.email = "Email is invalid";
   }
 
@@ -33,8 +33,8 @@ const signUpValidation = data => {
   }
 
   // password length checks 
-  if ( !Validator.equals( data.password,{ min: 8, max: 50 } ) ){
-    errors.password = "Password must ne at least 8 characters long";
+  if ( !Validator.isLength( data.password,{ min: 8, max: 50 } ) ){
+    errors.password = "Password must be at least 8 characters long";
   }
   if ( !Validator.equals( data.password, data.password2 ) ){
     errors.passwords2 = "Passwords must match";
