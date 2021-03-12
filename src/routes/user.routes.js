@@ -1,20 +1,18 @@
-const express = require('express');
+const express = require( 'express' );
+
 const router = express.Router();
-let User = require("../models/user.model");
 
+// import user controllers
+const userRoutes =require( "../controllers/user.controller" ); 
 
-router.route("/").get((req, res) => {
-    User.find()
-        .then(users => res.json(users))
-        .catch(err => res.status(400).json("Error: " + err));
-});
+// @route POST api/users/signup
+// @desc signup new user
+// @access PUBLIC
+router.post( "/signup", userRoutes.signupUser );
 
-router.route('/add').post((req, res) => {
-    const email = req.body.email;
-    const newUser = new User({email});
-    newUser.save()
-        .then(()=>res.json("you were added to the waiting list"))
-        .catch(err => res.status(400).json("Error: " + err));
-});
+// @route POST api/users/login
+// @desc login new user
+// @access PUBLIC
+router.post( "/login", userRoutes.loginUser );
 
 module.exports = router;
